@@ -34,7 +34,7 @@ export function LoginPage() {
             <Store className="w-12 h-12 text-blue-600" />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2"> هايبر سعيد </h1>
-          <p className="text-gray-600">نظام نقاط البيع المتقدم</p>
+          <p className="text-gray-600">سيستم كاشير</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
