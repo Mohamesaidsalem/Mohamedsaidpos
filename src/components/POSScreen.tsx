@@ -200,11 +200,11 @@ export function POSScreen() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50" dir="rtl">
+    <div className="flex flex-col lg:flex-row h-screen bg-gray-50" dir="rtl">
       {/* Products Section */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-3 lg:p-6 overflow-y-auto">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">شاشة البيع</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">شاشة البيع</h1>
           <div className="relative">
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -212,16 +212,16 @@ export function POSScreen() {
               placeholder="البحث عن منتج (الاسم أو الباركود)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pr-10 pl-4 py-2 lg:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm lg:text-base"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className={`bg-white p-4 rounded-xl shadow-lg border-2 transition-all duration-200 hover:shadow-xl cursor-pointer ${
+              className={`bg-white p-2 lg:p-4 rounded-lg lg:rounded-xl shadow-lg border-2 transition-all duration-200 hover:shadow-xl cursor-pointer ${
                 product.quantity === 0 
                   ? 'border-red-200 bg-red-50 opacity-60' 
                   : 'border-gray-200 hover:border-blue-300'
@@ -229,7 +229,7 @@ export function POSScreen() {
               onClick={() => product.quantity > 0 && addToCart(product)}
             >
               {/* Product Image */}
-              <div className="w-full h-32 bg-gray-100 rounded-lg mb-3 overflow-hidden">
+              <div className="w-full h-20 lg:h-32 bg-gray-100 rounded-lg mb-2 lg:mb-3 overflow-hidden">
                 {product.image ? (
                   <img
                     src={product.image}
@@ -238,30 +238,30 @@ export function POSScreen() {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Package className="w-8 h-8 text-gray-300" />
+                    <Package className="w-4 h-4 lg:w-8 lg:h-8 text-gray-300" />
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex justify-between items-start mb-2 lg:mb-3">
                 <div className="flex-1">
-                  <h3 className="font-bold text-gray-800 text-lg mb-1">{product.name}</h3>
-                  <p className="text-sm text-gray-600 font-mono">{product.barcode}</p>
-                  <p className="text-sm text-blue-600 bg-blue-100 px-2 py-1 rounded-full inline-block mt-1">
+                  <h3 className="font-bold text-gray-800 text-xs lg:text-lg mb-1 line-clamp-2">{product.name}</h3>
+                  <p className="text-xs lg:text-sm text-gray-600 font-mono hidden lg:block">{product.barcode}</p>
+                  <p className="text-xs lg:text-sm text-blue-600 bg-blue-100 px-1 lg:px-2 py-0.5 lg:py-1 rounded-full inline-block mt-1">
                     {product.category}
                   </p>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-2xl font-bold text-blue-600">{formatCurrency(product.price)}</span>
-                <span className="text-sm text-gray-600">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-2 lg:mb-3 gap-1 lg:gap-0">
+                <span className="text-sm lg:text-2xl font-bold text-blue-600">{formatCurrency(product.price)}</span>
+                <span className="text-xs lg:text-sm text-gray-600">
                   {product.quantity} {getUnitText(product.unit)}
                 </span>
               </div>
 
               <div className="flex justify-between items-center">
-                <span className={`text-sm px-2 py-1 rounded-full font-medium ${
+                <span className={`text-xs lg:text-sm px-1 lg:px-2 py-0.5 lg:py-1 rounded-full font-medium ${
                   product.quantity > product.minQuantity 
                     ? 'bg-green-100 text-green-800' 
                     : product.quantity > 0 
@@ -277,9 +277,9 @@ export function POSScreen() {
                       e.stopPropagation();
                       addToCart(product);
                     }}
-                    className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="bg-blue-600 text-white p-1 lg:p-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3 h-3 lg:w-4 lg:h-4" />
                   </button>
                 )}
               </div>
@@ -289,63 +289,63 @@ export function POSScreen() {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">لا توجد منتجات تطابق البحث</p>
+            <Search className="w-12 h-12 lg:w-16 lg:h-16 text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500 text-sm lg:text-lg">لا توجد منتجات تطابق البحث</p>
           </div>
         )}
       </div>
 
       {/* Cart Section */}
-      <div className="w-96 bg-white shadow-xl p-6 flex flex-col">
+      <div className="w-full lg:w-96 bg-white shadow-xl p-3 lg:p-6 flex flex-col max-h-screen lg:max-h-none overflow-y-auto">
         <div className="flex items-center gap-3 mb-6">
           <ShoppingCart className="w-6 h-6 text-blue-600" />
-          <h2 className="text-xl font-bold text-gray-800">سلة التسوق</h2>
-          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium">
+          <h2 className="text-lg lg:text-xl font-bold text-gray-800">سلة التسوق</h2>
+          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs lg:text-sm font-medium">
             {cart.length}
           </span>
         </div>
 
-        <div className="flex-1 overflow-y-auto mb-6 max-h-96 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <div className="flex-1 overflow-y-auto mb-4 lg:mb-6 max-h-48 lg:max-h-96 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
           {cart.length === 0 ? (
-            <div className="text-center py-12">
-              <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">السلة فارغة</p>
+            <div className="text-center py-8 lg:py-12">
+              <ShoppingCart className="w-12 h-12 lg:w-16 lg:h-16 text-gray-300 mx-auto mb-4" />
+              <p className="text-gray-500 text-sm lg:text-base">السلة فارغة</p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 lg:space-y-3">
               {cart.map((item) => (
-                <div key={item.product.id} className="bg-gray-50 p-4 rounded-lg">
+                <div key={item.product.id} className="bg-gray-50 p-2 lg:p-4 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-800">{item.product.name}</h4>
-                      <p className="text-sm text-gray-600">{formatCurrency(item.product.price)} / {getUnitText(item.product.unit)}</p>
+                      <h4 className="font-medium text-gray-800 text-sm lg:text-base line-clamp-1">{item.product.name}</h4>
+                      <p className="text-xs lg:text-sm text-gray-600">{formatCurrency(item.product.price)} / {getUnitText(item.product.unit)}</p>
                     </div>
                     <button
                       onClick={() => removeFromCart(item.product.id)}
-                      className="text-red-500 hover:text-red-700 p-1"
+                      className="text-red-500 hover:text-red-700 p-0.5 lg:p-1"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" />
                     </button>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 lg:gap-2">
                       <button
                         onClick={() => updateCartQuantity(item.product.id, item.quantity - 1)}
-                        className="bg-gray-200 text-gray-700 p-1 rounded hover:bg-gray-300 transition-colors"
+                        className="bg-gray-200 text-gray-700 p-0.5 lg:p-1 rounded hover:bg-gray-300 transition-colors"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-3 h-3 lg:w-4 lg:h-4" />
                       </button>
-                      <span className="font-medium px-3">{item.quantity}</span>
+                      <span className="font-medium px-2 lg:px-3 text-sm lg:text-base">{item.quantity}</span>
                       <button
                         onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
-                        className="bg-gray-200 text-gray-700 p-1 rounded hover:bg-gray-300 transition-colors"
+                        className="bg-gray-200 text-gray-700 p-0.5 lg:p-1 rounded hover:bg-gray-300 transition-colors"
                         disabled={item.quantity >= item.product.quantity}
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-3 h-3 lg:w-4 lg:h-4" />
                       </button>
                     </div>
-                    <span className="font-bold text-blue-600">
+                    <span className="font-bold text-blue-600 text-sm lg:text-base">
                       {formatCurrency(item.product.price * item.quantity)}
                     </span>
                   </div>
@@ -358,63 +358,63 @@ export function POSScreen() {
         {/* Cart Summary */}
         {cart.length > 0 && (
           <div className="border-t pt-4">
-            <div className="space-y-2 mb-4">
+            <div className="space-y-2 mb-3 lg:mb-4">
               <div className="flex justify-between">
-                <span className="text-gray-600">المجموع الفرعي:</span>
-                <span className="font-medium">{formatCurrency(subtotal)}</span>
+                <span className="text-gray-600 text-sm lg:text-base">المجموع الفرعي:</span>
+                <span className="font-medium text-sm lg:text-base">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">الضريبة (14%):</span>
-                <span className="font-medium">{formatCurrency(tax)}</span>
+                <span className="text-gray-600 text-sm lg:text-base">الضريبة (14%):</span>
+                <span className="font-medium text-sm lg:text-base">{formatCurrency(tax)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">الخصم:</span>
+                <span className="text-gray-600 text-sm lg:text-base">الخصم:</span>
                 <input
                   type="number"
                   value={discount}
                   onChange={(e) => setDiscount(Number(e.target.value))}
-                  className="w-20 px-2 py-1 border border-gray-300 rounded text-center"
+                  className="w-16 lg:w-20 px-1 lg:px-2 py-1 border border-gray-300 rounded text-center text-sm lg:text-base"
                   min="0"
                   max={subtotal + tax}
                 />
               </div>
-              <div className="flex justify-between text-lg font-bold border-t pt-2">
+              <div className="flex justify-between text-base lg:text-lg font-bold border-t pt-2">
                 <span>الإجمالي:</span>
                 <span className="text-blue-600">{formatCurrency(total)}</span>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 lg:space-y-3">
               <button
                 onClick={() => setShowPreview(true)}
-                className="w-full bg-gray-600 text-white py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-gray-600 text-white py-2 lg:py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 text-sm lg:text-base"
               >
                 <Eye className="w-4 h-4" />
                 معاينة الفاتورة
               </button>
               
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-1 lg:gap-2">
               <button
                 onClick={() => handlePaymentMethodSelect('cash')}
-                className="bg-green-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-1"
+                className="bg-green-600 text-white py-1.5 lg:py-2 rounded-lg text-xs lg:text-sm font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-1"
               >
-                <Banknote className="w-4 h-4" />
+                <Banknote className="w-3 h-3 lg:w-4 lg:h-4" />
                 نقدي
               </button>
               <button
                 onClick={() => handlePaymentMethodSelect('visa')}
-                className="bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-1"
+                className="bg-blue-600 text-white py-1.5 lg:py-2 rounded-lg text-xs lg:text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-1"
               >
-                <CreditCard className="w-4 h-4" />
+                <CreditCard className="w-3 h-3 lg:w-4 lg:h-4" />
                 فيزا
               </button>
               <button
                 onClick={handleMixedPayment}
-                className="bg-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-1"
+                className="bg-purple-600 text-white py-1.5 lg:py-2 rounded-lg text-xs lg:text-sm font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-1"
               >
                 <div className="flex">
-                  <Banknote className="w-3 h-3" />
-                  <CreditCard className="w-3 h-3 -ml-1" />
+                  <Banknote className="w-2 h-2 lg:w-3 lg:h-3" />
+                  <CreditCard className="w-2 h-2 lg:w-3 lg:h-3 -ml-1" />
                 </div>
                 مختلط
               </button>
@@ -422,23 +422,23 @@ export function POSScreen() {
             </div>
 
             {/* Payment Section */}
-            <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 payment-section">
-              <h3 className="text-sm font-bold text-gray-800 mb-3 text-center">
+            <div className="mt-3 lg:mt-4 p-2 lg:p-3 bg-gray-50 rounded-lg border border-gray-200 payment-section">
+              <h3 className="text-xs lg:text-sm font-bold text-gray-800 mb-2 lg:mb-3 text-center">
                 {selectedPaymentMethod === 'mixed' ? 'الدفع المختلط' : 
                  selectedPaymentMethod === 'visa' ? 'الدفع بالفيزا' : 'الدفع النقدي'}
               </h3>
               
               {selectedPaymentMethod !== 'visa' && (
-                <div className="space-y-3">
+                <div className="space-y-2 lg:space-y-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs lg:text-xs font-medium text-gray-700 mb-1">
                       {selectedPaymentMethod === 'mixed' ? 'المبلغ النقدي:' : 'المبلغ المدفوع:'}
                     </label>
                     <input
                       type="number"
                       value={paidAmount}
                       onChange={(e) => setPaidAmount(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+                      className="w-full px-2 lg:px-3 py-1.5 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center text-sm lg:text-base"
                       placeholder={selectedPaymentMethod === 'mixed' ? 'أدخل المبلغ النقدي' : 'أدخل المبلغ المدفوع'}
                       min="0"
                       max={selectedPaymentMethod === 'mixed' ? total : undefined}
@@ -448,26 +448,26 @@ export function POSScreen() {
 
                   {/* Mixed Payment Info */}
                   {selectedPaymentMethod === 'mixed' && (
-                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <div className="bg-blue-50 p-2 lg:p-3 rounded-lg border border-blue-200">
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-700">المبلغ النقدي:</span>
-                          <span className="font-medium text-blue-600">{formatCurrency(paidAmount)}</span>
+                          <span className="text-gray-700 text-xs lg:text-sm">المبلغ النقدي:</span>
+                          <span className="font-medium text-blue-600 text-xs lg:text-sm">{formatCurrency(paidAmount)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-700">مبلغ الفيزا:</span>
-                          <span className="font-medium text-purple-600">
+                          <span className="text-gray-700 text-xs lg:text-sm">مبلغ الفيزا:</span>
+                          <span className="font-medium text-purple-600 text-xs lg:text-sm">
                             {formatCurrency(cardAmount)}
                           </span>
                         </div>
                         <div className="flex justify-between border-t pt-2">
-                          <span className="text-gray-700 font-medium">الإجمالي:</span>
-                          <span className="font-bold text-green-600">
+                          <span className="text-gray-700 font-medium text-xs lg:text-sm">الإجمالي:</span>
+                          <span className="font-bold text-green-600 text-xs lg:text-sm">
                             {formatCurrency(paidAmount + cardAmount)}
                           </span>
                         </div>
                         {paidAmount > 0 && paidAmount + cardAmount === total && (
-                          <div className="text-center text-green-600 bg-green-100 py-1 px-2 rounded text-xs">
+                          <div className="text-center text-green-600 bg-green-100 py-1 px-2 rounded text-xs lg:text-xs">
                             ✓ المبلغ مضبوط تماماً
                           </div>
                         )}
@@ -476,12 +476,12 @@ export function POSScreen() {
                   )}
 
                   {/* Quick Amount Buttons */}
-                  <div className="grid grid-cols-4 gap-1">
+                  <div className="grid grid-cols-4 gap-0.5 lg:gap-1">
                     {[50, 100, 200, 500].map((amount) => (
                       <button
                         key={amount}
                         onClick={() => addQuickAmount(amount)}
-                        className="bg-blue-100 text-blue-700 py-1 px-2 rounded text-xs font-medium hover:bg-blue-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="bg-blue-100 text-blue-700 py-0.5 lg:py-1 px-1 lg:px-2 rounded text-xs font-medium hover:bg-blue-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={selectedPaymentMethod === 'mixed' && paidAmount + amount > total}
                       >
                         +{amount}
@@ -491,10 +491,10 @@ export function POSScreen() {
 
                   {/* Change Display - Only for cash payment */}
                   {selectedPaymentMethod === 'cash' && (
-                    <div className="bg-white p-3 rounded-lg border border-gray-300">
+                    <div className="bg-white p-2 lg:p-3 rounded-lg border border-gray-300">
                       <div className="text-center">
-                        <p className="text-xs text-gray-600 mb-1">الباقي</p>
-                        <div className={`text-2xl font-bold mb-1 ${
+                        <p className="text-xs lg:text-xs text-gray-600 mb-1">الباقي</p>
+                        <div className={`text-lg lg:text-2xl font-bold mb-1 ${
                           paidAmount === 0 ? 'text-gray-400' :
                           change > 0 ? 'text-green-600' : 
                           shortage > 0 ? 'text-red-600' : 'text-gray-400'
@@ -507,19 +507,19 @@ export function POSScreen() {
                         
                         {/* Status Messages */}
                         {paidAmount > 0 && (
-                          <div className="text-xs">
+                          <div className="text-xs lg:text-xs">
                             {shortage > 0 && (
-                              <p className="text-red-600 bg-red-50 py-1 px-2 rounded">
+                              <p className="text-red-600 bg-red-50 py-0.5 lg:py-1 px-1 lg:px-2 rounded">
                                 المبلغ المدفوع أقل من المطلوب
                               </p>
                             )}
                             {change > 0 && (
-                              <p className="text-green-600 bg-green-50 py-1 px-2 rounded">
+                              <p className="text-green-600 bg-green-50 py-0.5 lg:py-1 px-1 lg:px-2 rounded">
                                 يرجى إعطاء الباقي للعميل
                               </p>
                             )}
                             {change === 0 && shortage === 0 && (
-                              <p className="text-blue-600 bg-blue-50 py-1 px-2 rounded">
+                              <p className="text-blue-600 bg-blue-50 py-0.5 lg:py-1 px-1 lg:px-2 rounded">
                                 المبلغ مضبوط تماماً
                               </p>
                             )}
@@ -536,7 +536,7 @@ export function POSScreen() {
                       (selectedPaymentMethod === 'cash' && paidAmount < total) ||
                       (selectedPaymentMethod === 'mixed' && paidAmount > total)
                     }
-                    className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-green-600 text-white py-2 lg:py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm lg:text-base"
                   >
                     <Receipt className="w-4 h-4" />
                     {selectedPaymentMethod === 'cash' && paidAmount < total ? 'أدخل المبلغ المطلوب' :
@@ -553,11 +553,11 @@ export function POSScreen() {
       {/* Preview Modal */}
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <Eye className="w-6 h-6 text-blue-600" />
-                <h2 className="text-2xl font-bold text-gray-800">معاينة الفاتورة</h2>
+                <h2 className="text-xl lg:text-2xl font-bold text-gray-800">معاينة الفاتورة</h2>
               </div>
               <button
                 onClick={() => setShowPreview(false)}
@@ -569,54 +569,54 @@ export function POSScreen() {
 
             <div className="space-y-4 mb-6">
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="font-bold text-blue-800 mb-3">تفاصيل الأصناف</h3>
+                <h3 className="font-bold text-blue-800 mb-3 text-sm lg:text-base">تفاصيل الأصناف</h3>
                 <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin">
                   {cart.map((item) => (
-                    <div key={item.product.id} className="bg-white p-3 rounded-lg border">
+                    <div key={item.product.id} className="bg-white p-2 lg:p-3 rounded-lg border">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <h4 className="font-medium text-gray-800">{item.product.name}</h4>
-                          <p className="text-sm text-gray-600">
+                          <h4 className="font-medium text-gray-800 text-sm lg:text-base">{item.product.name}</h4>
+                          <p className="text-xs lg:text-sm text-gray-600">
                             {formatCurrency(item.product.price)} × {item.quantity} {getUnitText(item.product.unit)}
                           </p>
-                          <p className="text-xs text-gray-500 font-mono">{item.product.barcode}</p>
+                          <p className="text-xs lg:text-xs text-gray-500 font-mono hidden lg:block">{item.product.barcode}</p>
                         </div>
                         <div className="text-left flex items-center gap-2">
                           <button
                             onClick={() => removeFromCart(item.product.id)}
-                            className="text-red-500 hover:text-red-700 p-1 hover:bg-red-50 rounded transition-colors"
+                            className="text-red-500 hover:text-red-700 p-0.5 lg:p-1 hover:bg-red-50 rounded transition-colors"
                             title="حذف الصنف"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" />
                           </button>
-                          <p className="font-bold text-blue-600">
+                          <p className="font-bold text-blue-600 text-sm lg:text-base">
                             {formatCurrency(item.product.price * item.quantity)}
                           </p>
                         </div>
                       </div>
                       
                       {/* Quantity Controls */}
-                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                        <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-between mt-2 lg:mt-3 pt-2 lg:pt-3 border-t border-gray-100">
+                        <div className="flex items-center gap-1 lg:gap-2">
                           <button
                             onClick={() => updateCartQuantity(item.product.id, item.quantity - 1)}
-                            className="bg-gray-200 text-gray-700 p-1 rounded hover:bg-gray-300 transition-colors w-7 h-7 flex items-center justify-center"
+                            className="bg-gray-200 text-gray-700 p-0.5 lg:p-1 rounded hover:bg-gray-300 transition-colors w-6 h-6 lg:w-7 lg:h-7 flex items-center justify-center"
                             disabled={item.quantity <= 1}
                           >
-                            <Minus className="w-3 h-3" />
+                            <Minus className="w-2 h-2 lg:w-3 lg:h-3" />
                           </button>
-                          <span className="font-medium px-2 py-1 bg-gray-100 rounded min-w-[2.5rem] text-center text-sm">
+                          <span className="font-medium px-1 lg:px-2 py-0.5 lg:py-1 bg-gray-100 rounded min-w-[2rem] lg:min-w-[2.5rem] text-center text-xs lg:text-sm">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
-                            className="bg-gray-200 text-gray-700 p-1 rounded hover:bg-gray-300 transition-colors w-7 h-7 flex items-center justify-center"
+                            className="bg-gray-200 text-gray-700 p-0.5 lg:p-1 rounded hover:bg-gray-300 transition-colors w-6 h-6 lg:w-7 lg:h-7 flex items-center justify-center"
                             disabled={item.quantity >= item.product.quantity}
                           >
-                            <Plus className="w-3 h-3" />
+                            <Plus className="w-2 h-2 lg:w-3 lg:h-3" />
                           </button>
                         </div>
-                        <div className="text-xs text-gray-600">
+                        <div className="text-xs lg:text-xs text-gray-600">
                           متوفر: {item.product.quantity} {getUnitText(item.product.unit)}
                         </div>
                       </div>
@@ -625,8 +625,8 @@ export function POSScreen() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-gray-50 p-2 lg:p-3 rounded-lg">
+                <div className="grid grid-cols-2 gap-2 lg:gap-4 text-xs lg:text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">عدد الأصناف:</span>
                     <span className="font-medium">{cart.length} صنف</span>
@@ -638,22 +638,22 @@ export function POSScreen() {
                     </span>
                   </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-gray-200">
+                <div className="mt-2 lg:mt-3 pt-2 lg:pt-3 border-t border-gray-200">
                   <div className="flex justify-between mb-2">
-                    <span className="text-gray-600">المجموع الفرعي:</span>
-                    <span className="font-medium">{formatCurrency(subtotal)}</span>
+                    <span className="text-gray-600 text-xs lg:text-sm">المجموع الفرعي:</span>
+                    <span className="font-medium text-xs lg:text-sm">{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-gray-600">الضريبة (14%):</span>
-                    <span className="font-medium">{formatCurrency(tax)}</span>
+                    <span className="text-gray-600 text-xs lg:text-sm">الضريبة (14%):</span>
+                    <span className="font-medium text-xs lg:text-sm">{formatCurrency(tax)}</span>
                   </div>
                   {discount > 0 && (
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600">الخصم:</span>
-                      <span className="font-medium text-red-600">-{formatCurrency(discount)}</span>
+                      <span className="text-gray-600 text-xs lg:text-sm">الخصم:</span>
+                      <span className="font-medium text-red-600 text-xs lg:text-sm">-{formatCurrency(discount)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between text-lg font-bold border-t pt-2">
+                  <div className="flex justify-between text-sm lg:text-lg font-bold border-t pt-2">
                     <span>الإجمالي النهائي:</span>
                     <span className="text-blue-600">{formatCurrency(total)}</span>
                   </div>
@@ -664,11 +664,11 @@ export function POSScreen() {
             {/* Show message if cart becomes empty */}
             {cart.length === 0 && (
               <div className="text-center py-8">
-                <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 text-lg mb-4">تم حذف جميع الأصناف</p>
+                <ShoppingCart className="w-12 h-12 lg:w-16 lg:h-16 text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500 text-sm lg:text-lg mb-4">تم حذف جميع الأصناف</p>
                 <button
                   onClick={() => setShowPreview(false)}
-                  className="bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white py-2 px-4 lg:px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-sm lg:text-base"
                 >
                   العودة لإضافة أصناف
                 </button>
@@ -676,10 +676,10 @@ export function POSScreen() {
             )}
 
             {cart.length > 0 && (
-              <div className="flex gap-3">
+              <div className="flex gap-2 lg:gap-3">
                 <button
                   onClick={() => setShowPreview(false)}
-                  className="flex-1 bg-gray-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-gray-600 text-white py-2 rounded-lg text-xs lg:text-sm font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   العودة للتعديل
@@ -700,7 +700,7 @@ export function POSScreen() {
                       }
                     }, 100);
                   }}
-                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-xs lg:text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <CreditCard className="w-4 h-4" />
                   متابعة للدفع
@@ -714,47 +714,47 @@ export function POSScreen() {
       {/* Receipt Modal */}
       {showReceipt && lastSale && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="text-center mb-6">
-              <Receipt className="w-12 h-12 text-green-600 mx-auto mb-3" />
-              <h2 className="text-2xl font-bold text-gray-800">فاتورة البيع</h2>
-              <p className="text-gray-600">رقم الفاتورة: {lastSale.id}</p>
+              <Receipt className="w-10 h-10 lg:w-12 lg:h-12 text-green-600 mx-auto mb-3" />
+              <h2 className="text-xl lg:text-2xl font-bold text-gray-800">فاتورة البيع</h2>
+              <p className="text-gray-600 text-sm lg:text-base">رقم الفاتورة: {lastSale.id}</p>
             </div>
 
-            <div className="space-y-3 mb-6">
+            <div className="space-y-2 lg:space-y-3 mb-4 lg:mb-6">
               {lastSale.items.map((item: any) => (
                 <div key={item.product.id} className="flex justify-between">
                   <div>
-                    <span className="font-medium">{item.product.name}</span>
-                    <span className="text-gray-600 text-sm"> × {item.quantity}</span>
+                    <span className="font-medium text-sm lg:text-base">{item.product.name}</span>
+                    <span className="text-gray-600 text-xs lg:text-sm"> × {item.quantity}</span>
                   </div>
-                  <span>{formatCurrency(item.product.price * item.quantity)}</span>
+                  <span className="text-sm lg:text-base">{formatCurrency(item.product.price * item.quantity)}</span>
                 </div>
               ))}
             </div>
 
-            <div className="border-t pt-4 space-y-2">
+            <div className="border-t pt-3 lg:pt-4 space-y-2">
               <div className="flex justify-between">
-                <span>المجموع الفرعي:</span>
-                <span>{formatCurrency(lastSale.subtotal)}</span>
+                <span className="text-sm lg:text-base">المجموع الفرعي:</span>
+                <span className="text-sm lg:text-base">{formatCurrency(lastSale.subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span>الضريبة:</span>
-                <span>{formatCurrency(lastSale.tax)}</span>
+                <span className="text-sm lg:text-base">الضريبة:</span>
+                <span className="text-sm lg:text-base">{formatCurrency(lastSale.tax)}</span>
               </div>
               {lastSale.discount > 0 && (
                 <div className="flex justify-between">
-                  <span>الخصم:</span>
-                  <span>-{formatCurrency(lastSale.discount)}</span>
+                  <span className="text-sm lg:text-base">الخصم:</span>
+                  <span className="text-sm lg:text-base">-{formatCurrency(lastSale.discount)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-lg font-bold border-t pt-2">
+              <div className="flex justify-between text-base lg:text-lg font-bold border-t pt-2">
                 <span>الإجمالي:</span>
                 <span>{formatCurrency(lastSale.total)}</span>
               </div>
               <div className="flex justify-between">
-                <span>طريقة الدفع:</span>
-                <span>
+                <span className="text-sm lg:text-base">طريقة الدفع:</span>
+                <span className="text-sm lg:text-base">
                   {lastSale.paymentMethod === 'cash' ? 'نقدي' : 
                    lastSale.paymentMethod === 'visa' ? 'فيزا' : 'مختلط'}
                 </span>
@@ -764,145 +764,45 @@ export function POSScreen() {
               {lastSale.paymentMethod === 'mixed' ? (
                 <>
                   <div className="flex justify-between">
-                    <span>المبلغ النقدي:</span>
-                    <span>{formatCurrency(lastSale.cashAmount || 0)}</span>
+                    <span className="text-sm lg:text-base">المبلغ النقدي:</span>
+                    <span className="text-sm lg:text-base">{formatCurrency(lastSale.cashAmount || 0)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>مبلغ الفيزا:</span>
-                    <span>{formatCurrency(lastSale.cardAmount || 0)}</span>
+                    <span className="text-sm lg:text-base">مبلغ الفيزا:</span>
+                    <span className="text-sm lg:text-base">{formatCurrency(lastSale.cardAmount || 0)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>إجمالي المدفوع:</span>
-                    <span>{formatCurrency(lastSale.paidAmount)}</span>
+                    <span className="text-sm lg:text-base">إجمالي المدفوع:</span>
+                    <span className="text-sm lg:text-base">{formatCurrency(lastSale.paidAmount)}</span>
                   </div>
                 </>
               ) : lastSale.paymentMethod === 'cash' && lastSale.paidAmount ? (
                 <>
                   <div className="flex justify-between">
-                    <span>المبلغ المدفوع:</span>
-                    <span>{formatCurrency(lastSale.paidAmount)}</span>
+                    <span className="text-sm lg:text-base">المبلغ المدفوع:</span>
+                    <span className="text-sm lg:text-base">{formatCurrency(lastSale.paidAmount)}</span>
                   </div>
                   {lastSale.change && lastSale.change > 0 && (
                     <div className="flex justify-between text-green-600 font-bold">
-                      <span>الباقي:</span>
-                      <span>{formatCurrency(lastSale.change)}</span>
+                      <span className="text-sm lg:text-base">الباقي:</span>
+                      <span className="text-sm lg:text-base">{formatCurrency(lastSale.change)}</span>
                     </div>
                   )}
                 </>
               ) : null}
             </div>
 
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-2 lg:gap-3 mt-4 lg:mt-6">
               <button
                 onClick={handlePrintReceipt}
-                className="flex-1 bg-gray-600 text-white py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-gray-600 text-white py-2 lg:py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 text-sm lg:text-base"
               >
-                <Printer className="w-5 h-5" />
+                <Printer className="w-4 h-4 lg:w-5 lg:h-5" />
                 طباعة
               </button>
               <button
                 onClick={() => setShowReceipt(false)}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-              >
-                إغلاق
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Receipt Modal */}
-      {showReceipt && lastSale && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
-            <div className="text-center mb-6">
-              <Receipt className="w-12 h-12 text-green-600 mx-auto mb-3" />
-              <h2 className="text-2xl font-bold text-gray-800">فاتورة البيع</h2>
-              <p className="text-gray-600">رقم الفاتورة: {lastSale.id}</p>
-            </div>
-
-            <div className="space-y-3 mb-6">
-              {lastSale.items.map((item: any) => (
-                <div key={item.product.id} className="flex justify-between">
-                  <div>
-                    <span className="font-medium">{item.product.name}</span>
-                    <span className="text-gray-600 text-sm"> × {item.quantity}</span>
-                  </div>
-                  <span>{formatCurrency(item.product.price * item.quantity)}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t pt-4 space-y-2">
-              <div className="flex justify-between">
-                <span>المجموع الفرعي:</span>
-                <span>{formatCurrency(lastSale.subtotal)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>الضريبة:</span>
-                <span>{formatCurrency(lastSale.tax)}</span>
-              </div>
-              {lastSale.discount > 0 && (
-                <div className="flex justify-between">
-                  <span>الخصم:</span>
-                  <span>-{formatCurrency(lastSale.discount)}</span>
-                </div>
-              )}
-              <div className="flex justify-between text-lg font-bold border-t pt-2">
-                <span>الإجمالي:</span>
-                <span>{formatCurrency(lastSale.total)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>طريقة الدفع:</span>
-                <span>
-                  {lastSale.paymentMethod === 'cash' ? 'نقدي' : 
-                   lastSale.paymentMethod === 'visa' ? 'فيزا' : 'مختلط'}
-                </span>
-              </div>
-              
-              {/* Payment Details */}
-              {lastSale.paymentMethod === 'mixed' ? (
-                <>
-                  <div className="flex justify-between">
-                    <span>المبلغ النقدي:</span>
-                    <span>{formatCurrency(lastSale.cashAmount || 0)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>مبلغ الفيزا:</span>
-                    <span>{formatCurrency(lastSale.cardAmount || 0)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>إجمالي المدفوع:</span>
-                    <span>{formatCurrency(lastSale.paidAmount)}</span>
-                  </div>
-                </>
-              ) : lastSale.paymentMethod === 'cash' && lastSale.paidAmount ? (
-                <>
-                  <div className="flex justify-between">
-                    <span>المبلغ المدفوع:</span>
-                    <span>{formatCurrency(lastSale.paidAmount)}</span>
-                  </div>
-                  {lastSale.change && lastSale.change > 0 && (
-                    <div className="flex justify-between text-green-600 font-bold">
-                      <span>الباقي:</span>
-                      <span>{formatCurrency(lastSale.change)}</span>
-                    </div>
-                  )}
-                </>
-              ) : null}
-            </div>
-
-            <div className="flex gap-3 mt-6">
-              <button
-                onClick={handlePrintReceipt}
-                className="flex-1 bg-gray-600 text-white py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
-              >
-                <Printer className="w-5 h-5" />
-                طباعة
-              </button>
-              <button
-                onClick={() => setShowReceipt(false)}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-blue-600 text-white py-2 lg:py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors text-sm lg:text-base"
               >
                 إغلاق
               </button>
