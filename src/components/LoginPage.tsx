@@ -33,7 +33,7 @@ export function LoginPage() {
           <div className="bg-blue-100 rounded-full p-4 w-20 h-20 mx-auto mb-4">
             <Store className="w-12 h-12 text-blue-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">متجر البركة</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2"> هايبر سعيد </h1>
           <p className="text-gray-600">نظام نقاط البيع المتقدم</p>
         </div>
 
