@@ -38,7 +38,7 @@ export function Layout({ children, currentPage, onPageChange }: LayoutProps) {
             </button>
             {sidebarOpen && (
               <div className="mr-3">
-                <h1 className="text-xl font-bold text-gray-800">متجر البركة</h1>
+                <h1 className="text-xl font-bold text-gray-800">هايبر سعيد</h1>
                 <p className="text-sm text-gray-600">نظام POS متقدم</p>
               </div>
             )}
