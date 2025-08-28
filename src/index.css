@@ -2,52 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar styles */
-.scrollbar-thin {
-  scrollbar-width: thin;
-}
-
-.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
-  background-color: #d1d5db;
-  border-radius: 0.375rem;
-}
-
-.scrollbar-track-gray-100::-webkit-scrollbar-track {
-  background-color: #f3f4f6;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: #d1d5db;
-  border-radius: 0.375rem;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background-color: #f3f4f6;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af;
-}
-
-/* Payment section highlight animation */
-.highlight-payment {
-  animation: highlightPulse 2s ease-in-out;
-  border: 2px solid #3b82f6 !important;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3) !important;
-}
-
-@keyframes highlightPulse {
-  0% {
-    box-shadow: 0 0 0 rgba(59, 130, 246, 0.7);
+/* Custom styles for mobile responsiveness */
+@layer utilities {
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
-  50% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
-  100% {
-    box-shadow: 0 0 0 rgba(59, 130, 246, 0.7);
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+  }
+  
+  .scrollbar-track-gray-100::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+  }
+  
+  /* Payment section highlight animation */
+  .highlight-payment {
+    animation: highlight 2s ease-in-out;
+  }
+  
+  @keyframes highlight {
+    0% { background-color: rgb(239 246 255); }
+    50% { background-color: rgb(219 234 254); }
+    100% { background-color: rgb(249 250 251); }
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  /* Ensure proper touch targets */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Improve text readability on small screens */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-1 > * + * {
+    margin-top: 0.25rem;
+  }
+  
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Ensure modals are properly sized on mobile */
+@media (max-width: 640px) {
+  .fixed.inset-0 > div {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
   }
 }
